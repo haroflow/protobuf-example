@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+// Unique name to avoid conflicts between protobufs.
+package addressbook;
+
+// Go package name, compilation will output to the protos/addressbook folder.
+option go_package = "protos/addressbook";
+
+// No idea...
+import "google/protobuf/timestamp.proto";
+
+// Rules for schema changes and compatibility, see https://developers.google.com/protocol-buffers/docs/gotutorial#extending-a-protocol-buffer
+// 1. you must not change the tag numbers of any existing fields.
+// 2. you may delete fields.
+// 3. you may add new fields but you must use fresh tag numbers (i.e. tag numbers that were never used in this protocol buffer, not even by deleted fields).
+
+// Creates a person struct for our application
+message Person {
+  string name = 1;
+  int32 id = 2; // Unique ID number for this person
+  string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    string number = 1;
+    PhoneType type = 2;
+  }
+
+  repeated PhoneNumber phones = 4;
+
+  google.protobuf.Timestamp last_updated = 5;
+}
+
+// Creates an addressbook, represented by a list of people
+message AddressBook {
+  repeated Person people = 1;
+}

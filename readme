@@ -1,0 +1,5 @@
+If you haven't installed the compiler, download the package and follow the instructions in the README.
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+https://developers.google.com/protocol-buffers/docs/gotutorial#compiling-your-protocol-buffers
+
+make protos
